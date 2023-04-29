@@ -1,5 +1,7 @@
 package org.example;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,13 +14,19 @@ public class EmployeeBook {
 
     }
 
-    public String addEmployee(Employee employee) {
-        if (employees.containsValue(employee)) {
+    public Employee addEmployee(Employee employee) {
+        boolean a;
+        boolean b;
+        a = checkLetters(employee);
+        b = checkSymbols(employee);
+        if (a == false || b == false) {
+            System.out.println("400 Bad Request");
+        } else if (employees.containsValue(employee)) {
             throw new RuntimeException("Такой сотрудник уже есть");
         } else {
             employees.put(employee.getFullName(), employee);
         }
-        return null;
+        return employee;
     }
 
     public void showAll() {
@@ -45,5 +53,11 @@ public class EmployeeBook {
         } else {
             System.out.println("Сотрудник не найден");
         }
+    }
+    public boolean checkLetters (Employee employee) {
+        return StringUtils.isAlpha(employee.getFullNameTogether());
+    }
+    public static boolean checkSymbols (Employee employee) {
+        return !employee.getFullNameTogether().matches("\\W");
     }
 }

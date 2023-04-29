@@ -1,5 +1,7 @@
 package org.example;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Objects;
 
 public class Employee {
@@ -8,8 +10,8 @@ public class Employee {
 
 
     public Employee(String name, String lastname) {
-        this.name = name;
-        this.lastname = lastname;
+        this.name = StringUtils.capitalize(name);
+        this.lastname = StringUtils.capitalize(lastname);
     }
 
     public String toString() {
@@ -26,6 +28,9 @@ public class Employee {
 
     public String getFullName() {
         return name + " " + lastname;
+    }
+    public String getFullNameTogether() {
+        return name + lastname;
     }
 
     @Override
